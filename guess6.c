@@ -29,6 +29,8 @@ main(const int argc, const char * argv[])
   int answer; // the secret number to guess
   int guess;  // the user's guess
   int max;    // we'll pick a number in [1..max]
+  int count = 0; //start the count of how many guess have been done so far
+  int const endAt = 10; //the number to end the game from too many guesses
 
   // interpret arguments
   if (argc == 1) {
@@ -50,8 +52,12 @@ main(const int argc, const char * argv[])
 
   printf("I'm thinking of a number between 1-%d.\n", max);
   guess = askGuess(1, max);
+  count++;
 
   while (guess != 0 && guess != answer) {
+    if (count == endAt) {
+        break;
+    }
     if (guess < 0) {
       printf("invalid number!\n");
     } else if (guess > answer) {
@@ -59,6 +65,7 @@ main(const int argc, const char * argv[])
     } else {
       printf("too low!\n");
     }
+    count++;
     guess = askGuess(1, max);
   }
 
